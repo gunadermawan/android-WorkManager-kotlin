@@ -3,9 +3,7 @@ package com.gunder.myworkmanager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
+import androidx.work.*
 import com.gunder.myworkmanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -30,6 +28,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.textStatus.text = getString(R.string.status)
         val data = Data.Builder()
             .putString(MyWorker.EXTRA_CITY, binding.editCity.text.toString())
+            .build()
+        val constraint = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         val oneTimeWorkRequest = OneTimeWorkRequest.Builder(MyWorker::class.java)
             .setInputData(data)
